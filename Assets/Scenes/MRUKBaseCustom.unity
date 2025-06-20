@@ -322,7 +322,7 @@ MonoBehaviour:
   waveSpeedMin: 1
   waveSpeedMax: 3
   returningSpeed: 3
-  stickAction: {fileID: 6916613710952887145, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  stickAction: {fileID: 6035370146067415925, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!4 &236294863
 Transform:
   m_ObjectHideFlags: 0
