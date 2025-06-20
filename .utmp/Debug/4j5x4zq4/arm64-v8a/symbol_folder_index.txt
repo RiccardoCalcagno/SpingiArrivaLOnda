@@ -1,0 +1,1 @@
+C:\Users\Giulia\Documents\GitHub\SpingiArrivaLOnda\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\Debug\4j5x4zq4\obj\arm64-v8a
