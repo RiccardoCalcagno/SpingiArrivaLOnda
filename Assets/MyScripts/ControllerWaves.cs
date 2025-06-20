@@ -16,15 +16,8 @@ public class ControllerWaves : MonoBehaviour
     public float WaterDepth
     {
         get
-        {
-            if (waterDepth > 0)
-            {
-                return waterDepth;
-            }
-            else
-            {
-                return waterDepth / (isSingleWave ? 10f : 2f);
-            }         
+        {            
+            return waterDepth;
         }
         private set
         {
@@ -33,7 +26,7 @@ public class ControllerWaves : MonoBehaviour
     }
 
     public float Intensity { get; private set; }
-   
+
 
     private float pressStartTime;
     private bool isPressing = false;
@@ -44,40 +37,31 @@ public class ControllerWaves : MonoBehaviour
     private Coroutine waveCoroutine;
     private Coroutine vibrationCoroutine;
 
-    void OnEnable()
-    {
-        if (stickAction != null)
-            stickAction.action.Enable();
-    }
+    //void OnEnable()
+    //{
+    //    if (stickAction != null)
+    //        stickAction.action.Enable();
+    //}
 
-    void Update()
-    {
-        if (stickAction == null) return;
+    //void Update()
+    //{
+    //    if (stickAction == null) return;
 
-        Vector2 stickInput = stickAction.action.ReadValue<Vector2>();
-        float rawY = stickInput.y;
+    //    Vector2 stickInput = stickAction.action.ReadValue<Vector2>();
+    //    float rawY = stickInput.y;
 
-        // Convert from [-1, 1] to [0, 1]
-        float normalizedY = (rawY + 1f) / 2f;
+    //    // Convert from [-1, 1] to [0, 1]
+    //    float normalizedY = (rawY + 1f) / 2f;
 
-        Debug.Log($"Stick Y (normalized 0-1): {normalizedY}");
-    }
+    //    Debug.Log($"Stick Y (normalized 0-1): {normalizedY}");
+    //}
 
 
     public void JoystickPressureBegin(float newIntensity)
-    {        
-        vibrationCoroutine = StartCoroutine(vibrationCoroutineController()); 
+    {
+        vibrationCoroutine = StartCoroutine(vibrationCoroutineController());
         pressStartTime = Time.time;
         isPressing = true;
-        StartCoroutine(waitForWaveStop(newIntensity));
-    }
-
-    IEnumerator waitForWaveStop(float newIntensity)
-    {
-        while (isWaveRunning && WaterDepth > 0)
-        {
-            yield return new WaitForEndOfFrame();
-        }
         Intensity = newIntensity;
     }
 
@@ -95,7 +79,7 @@ public class ControllerWaves : MonoBehaviour
             PlaySingleWave();
         }
         else
-        {            
+        {
             StartContinuousWave();
         }
     }
@@ -103,13 +87,13 @@ public class ControllerWaves : MonoBehaviour
     void PlaySingleWave()
     {
         isWaveRunning = true;
-        waveCoroutine = StartCoroutine(SingleWave());
+        waveCoroutine = StartCoroutine(SingleWave(Intensity));
     }
 
     void StartContinuousWave()
     {
         isWaveRunning = true;
-        waveCoroutine = StartCoroutine(ContinuousWave());
+        waveCoroutine = StartCoroutine(ContinuousWave(Intensity));
     }
 
     void StopWave()
@@ -121,8 +105,6 @@ public class ControllerWaves : MonoBehaviour
         {
             StopCoroutine(waveCoroutine);
         }
-
-        Debug.Log("After Stop: " + WaterDepth);
     }
 
     IEnumerator vibrationCoroutineController()
@@ -132,21 +114,39 @@ public class ControllerWaves : MonoBehaviour
         //make the vibration happen
     }
 
-    IEnumerator SingleWave()
+    IEnumerator SingleWave(float intensity)
     {
-        isReturning = true;
         yield return BackToBaseY();
-        isReturning = false;
-        float t = 0f;
-        float duration = Mathf.PI * 2f / Mathf.Lerp(waveSpeedMin, waveSpeedMax, Intensity);
-        isSingleWave = true;        
 
-        while (t < duration && !isReturning)
+        float t = 0f;
+        var moltiplicatore = Mathf.Lerp(waveSpeedMin, waveSpeedMax, intensity);
+
+        isSingleWave = true;
+
+        bool crossLine = false;
+
+        while ((crossLine == false || t < 0.3333f * Mathf.PI / moltiplicatore) && !isReturning && isWaveRunning)
         {
             t += Time.deltaTime;
-            var moltiplicatore = Mathf.Lerp(waveSpeedMin, waveSpeedMax, Intensity);   
-            float sin = Mathf.Sin(t * moltiplicatore);
-            WaterDepth = sin;            
+
+            if (t * moltiplicatore > Mathf.PI && crossLine == false)
+            {
+                t = 0;
+                crossLine = true;
+            }
+
+            float sin;
+
+            if (crossLine)
+            {
+                sin = -Mathf.Sin(t * moltiplicatore * 3f) / 7f;
+            }
+            else
+            {
+                sin = Mathf.Sin(t * moltiplicatore);
+            }
+
+            WaterDepth = sin;
             yield return new WaitForEndOfFrame();
         }
 
@@ -155,25 +155,36 @@ public class ControllerWaves : MonoBehaviour
 
         yield return null;
     }
-    IEnumerator ContinuousWave()
+    IEnumerator ContinuousWave(float intensity)
     {
         float t = 0f;
-        isReturning = true;
+
         yield return BackToBaseY();
-        isReturning = false;
-        while (!isReturning)
+
+        while (!isReturning && isWaveRunning)
         {
             t += Time.deltaTime;
-            float sin = Mathf.Sin(t * Mathf.Lerp(waveSpeedMin, waveSpeedMax, Intensity));
-            WaterDepth = sin;           
+            float sin = Mathf.Sin(t * Mathf.Lerp(waveSpeedMin, waveSpeedMax, intensity));
+
+            if (sin > 0)
+            {
+                WaterDepth = sin;
+            }
+            else
+            {
+                WaterDepth = sin / 2;
+            }
+
+
             yield return new WaitForEndOfFrame();
         }
     }
 
     //TODO
     IEnumerator BackToBaseY()
-    {              
-        if(Mathf.Abs(WaterDepth) > 0.02f)
+    {
+        isReturning = true;
+        if (Mathf.Abs(WaterDepth) > 0.02f)
         {
             var startTime = Time.time;
             var startPosition = WaterDepth;
@@ -183,8 +194,12 @@ public class ControllerWaves : MonoBehaviour
             {
                 var relativeProgress = (Time.time - startTime) / durationReturning;
                 WaterDepth = Mathf.Lerp(startPosition, 0, relativeProgress);
+
                 yield return new WaitForEndOfFrame();
             }
-        }      
-    }   
+        }
+        isReturning = false;
+        yield return null;
+    }
+
 }
