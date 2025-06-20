@@ -1,0 +1,10 @@
+# ninja log v5
+0	748	7720403781146077	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	85f6de17ffc09d42
+16	755	7720403781181769	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	583b0692c41eb17
+12	758	7720403781203203	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	4d5f8109195b4728
+4	759	7720403781320097	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3147e008ac48e22c
+23	760	7720403781253824	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	267216b004be8adf
+20	825	7720403781989764	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	4965cb25fcb77047
+8	855	7720403782299642	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	66380f185dcf0465
+28	886	7720403782616220	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	51ef68ae28229578
+887	985	7720403783587059	C:/Users/Giulia/WavesReality/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/1t6l5q2z/obj/arm64-v8a/libgame.so	3dd31ce211150584
