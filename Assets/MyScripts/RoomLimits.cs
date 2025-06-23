@@ -1,3 +1,4 @@
+using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class RoomLimits : MonoBehaviour
@@ -11,10 +12,11 @@ public class RoomLimits : MonoBehaviour
     {
         yLimitTop = 4.7f;
         yLimitBottom = -1.3f;
-        meshVolumeObj = FindFirstObjectByType<RoomMeshAnchor>().gameObject;
+        /*
+        meshVolumeObj = FindFirstObjectByType<MRUKRoom>().gameObject;
         meshVolumeObj.transform.position = new Vector3(0, 0, 0);
         meshVolumeObj.transform.Rotate(0,0,0);
-        
+        */
     }
 
     

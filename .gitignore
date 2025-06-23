@@ -73,3 +73,5 @@ crashlytics-build.properties
 
 # Downloadable Assets
 /[Aa]ssets/XR/*
+/[Aa]ssets/Proxy Games/Stylized Nature Kit Lite/Misc/HDRI.hdr
+Assets/Proxy Games/Stylized Nature Kit Lite/Misc/HDRI.hdr.meta
