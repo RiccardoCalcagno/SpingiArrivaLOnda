@@ -36,6 +36,11 @@ public class ControllerWaves : MonoBehaviour
 
     private Coroutine waveCoroutine;
     private Coroutine vibrationCoroutine;
+    private GameObject sea;
+    private void Start()
+    {
+        sea = GameObject.FindFirstObjectByType<RoomLimits>().gameObject;
+    }
 
     //void OnEnable()
     //{
