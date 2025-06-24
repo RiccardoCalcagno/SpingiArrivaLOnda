@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MRUKBaseCustom.unity
+    guid: 8d50abecc7f1a3c47968c5f34f5e382a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: edc5a2ea7883f334eb9a740f91f2e9f8, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
