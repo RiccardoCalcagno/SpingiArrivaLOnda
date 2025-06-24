@@ -75,3 +75,5 @@ crashlytics-build.properties
 /[Aa]ssets/XR/*
 /[Aa]ssets/Proxy Games/Stylized Nature Kit Lite/Misc/HDRI.hdr
 Assets/Proxy Games/Stylized Nature Kit Lite/Misc/HDRI.hdr.meta
+Assets/Scenes/MRUKBaseCustom/LightingData.asset
+Assets/Scenes/MRUKBaseCustom/LightingData.asset

@@ -2,37 +2,26 @@ using Meta.XR.MRUtilityKit;
 using UnityEngine;
 
 public class RoomLimits : MonoBehaviour
-{
-    public float yLimitTop;
-    public float yLimitBottom;
-
+{   
     private GameObject meshVolumeObj;
+    private Vector3 startPosition;
+    private ControllerWaves scriptWaves;
     // Start is called once before the first eyecution of Update after the MonoBehaviour is created
     void Start()
     {
-        yLimitTop = 4.7f;
-        yLimitBottom = -1.3f;
         /*
         meshVolumeObj = FindFirstObjectByType<MRUKRoom>().gameObject;
         meshVolumeObj.transform.position = new Vector3(0, 0, 0);
         meshVolumeObj.transform.Rotate(0,0,0);
         */
+        scriptWaves = GameObject.Find("WavesManipulator").GetComponent<ControllerWaves>();
+        startPosition = transform.position;
     }
 
     
     // Update is called once per frame
     void Update()
     {
-       
-        if (transform.position.y < yLimitBottom)
-        {
-            transform.position = new Vector3(transform.position.x, yLimitBottom, transform.position.z);
-        }
-        
-        if (transform.position.y > yLimitTop)
-        {
-            transform.position = new Vector3(transform.position.x, yLimitTop, transform.position.z);
-        }
-        
+        transform.position = new Vector3(transform.position.x, startPosition.y + (scriptWaves.WaterDepth / 4), transform.position.z);
     }
 }

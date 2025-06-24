@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,9 +9,14 @@ public class ControllerWaves : MonoBehaviour
     public float waveSpeedMin;
     public float waveSpeedMax;
     public float returningSpeed;
+    public OVRInput.Controller controllerToVibrate = OVRInput.Controller.RTouch; //scegli il controller
+    
+    //impostazioni della vibrazione
+    [Range(0, 1)] public float frequency = 0.5f;
+    [Range(0, 1)] public float amplitude = 0.5f;
+    public float duration = 0.2f;
 
-
-    public InputActionReference stickAction;
+    
 
     private float waterDepth;
     public float WaterDepth
@@ -33,41 +39,33 @@ public class ControllerWaves : MonoBehaviour
     private bool isWaveRunning = false;
     private bool isReturning = false;
     private bool isSingleWave = false;
+    private AudioSource audio;
 
     private Coroutine waveCoroutine;
     private Coroutine vibrationCoroutine;
-    private GameObject sea;
+    
     private void Start()
     {
-        sea = GameObject.FindFirstObjectByType<RoomLimits>().gameObject;
+        audio = GameObject.Find("WaveSound").GetComponent<AudioSource>();
+        audio.Play();
+        audio.volume = 0; 
     }
 
-    //void OnEnable()
-    //{
-    //    if (stickAction != null)
-    //        stickAction.action.Enable();
-    //}
+    private void Update()
+    {
+        audio.volume = Mathf.Abs(waterDepth) + 0.5f;
+        if (waterDepth > -0.025f && waterDepth < 0.025f && !isWaveRunning)
+        {
+            audio.volume = 0; 
+        }
+    }
 
-    //void Update()
-    //{
-    //    if (stickAction == null) return;
-
-    //    Vector2 stickInput = stickAction.action.ReadValue<Vector2>();
-    //    float rawY = stickInput.y;
-
-    //    // Convert from [-1, 1] to [0, 1]
-    //    float normalizedY = (rawY + 1f) / 2f;
-
-    //    Debug.Log($"Stick Y (normalized 0-1): {normalizedY}");
-    //}
-
-
-    public void JoystickPressureBegin(float newIntensity)
+    public void JoystickPressureBegin(float intensity)
     {
         vibrationCoroutine = StartCoroutine(vibrationCoroutineController());
         pressStartTime = Time.time;
         isPressing = true;
-        Intensity = newIntensity;
+        Intensity = intensity;
     }
 
     public void JoystickPressureEnd()
@@ -112,17 +110,19 @@ public class ControllerWaves : MonoBehaviour
         }
     }
 
+
     IEnumerator vibrationCoroutineController()
     {
         yield return new WaitForSeconds(maxSingleWaveDuration);
-        Debug.Log("Vibration");
         //make the vibration happen
+        OVRInput.SetControllerVibration(frequency, amplitude, controllerToVibrate);
+        yield return new WaitForSeconds(duration);
+        OVRInput.SetControllerVibration(0, 0, controllerToVibrate);
     }
 
     IEnumerator SingleWave(float intensity)
     {
         yield return BackToBaseY();
-
         float t = 0f;
         var moltiplicatore = Mathf.Lerp(waveSpeedMin, waveSpeedMax, intensity);
 
@@ -157,7 +157,6 @@ public class ControllerWaves : MonoBehaviour
 
         isWaveRunning = false;
         isSingleWave = false;
-
         yield return null;
     }
     IEnumerator ContinuousWave(float intensity)
@@ -165,7 +164,6 @@ public class ControllerWaves : MonoBehaviour
         float t = 0f;
 
         yield return BackToBaseY();
-
         while (!isReturning && isWaveRunning)
         {
             t += Time.deltaTime;
@@ -185,7 +183,7 @@ public class ControllerWaves : MonoBehaviour
         }
     }
 
-    //TODO
+   //TODO
     IEnumerator BackToBaseY()
     {
         isReturning = true;
