@@ -90,7 +90,7 @@
                     "name": "WaveDial",
                     "type": "Value",
                     "id": "8f62bd5f-022a-45bd-b538-e347cfd4ff35",
-                    "expectedControlType": "Stick",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -485,7 +485,7 @@
                 {
                     "name": "",
                     "id": "18a3b114-32bc-415b-ac4a-5495fcfa2ad3",
-                    "path": "<Joystick>/stick",
+                    "path": "<XRController>{RightHand}/thumbstick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
