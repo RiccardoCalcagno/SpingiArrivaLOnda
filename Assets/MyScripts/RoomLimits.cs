@@ -22,6 +22,6 @@ public class RoomLimits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, startPosition.y + (scriptWaves.WaterDepth / 4), transform.position.z);
+        transform.position = new Vector3(transform.position.x, startPosition.y + (scriptWaves.WaterDepth / 4) , transform.position.z);
     }
 }

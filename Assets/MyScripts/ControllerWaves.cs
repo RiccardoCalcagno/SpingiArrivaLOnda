@@ -55,7 +55,7 @@ public class ControllerWaves : MonoBehaviour
 
     private void Update()
     {
-        audio.volume = Mathf.Lerp(0.5f, 2f, waterDepth); 
+        audio.volume = Mathf.Lerp(0.5f, 4.5f, waterDepth); 
         audio.pitch = math.lerp(0.8f, 1.2f, waterDepth);
         if (waterDepth < -0.025 && isWaveRunning && !isAudio)
         {
