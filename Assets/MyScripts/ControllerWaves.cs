@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +41,7 @@ public class ControllerWaves : MonoBehaviour
     private bool isReturning = false;
     private bool isSingleWave = false;
     private AudioSource audio;
+    private bool isAudio = false;
 
     private Coroutine waveCoroutine;
     private Coroutine vibrationCoroutine;
@@ -53,10 +55,16 @@ public class ControllerWaves : MonoBehaviour
 
     private void Update()
     {
-        audio.volume = Mathf.Abs(waterDepth) + 0.5f;
-        if (waterDepth > -0.025f && waterDepth < 0.025f && !isWaveRunning)
+        audio.volume = Mathf.Lerp(0.5f, 2f, waterDepth); 
+        audio.pitch = math.lerp(0.8f, 1.2f, waterDepth);
+        if (waterDepth < -0.025 && isWaveRunning && !isAudio)
         {
-            audio.volume = 0; 
+            isAudio = true;
+        }
+
+        if (isAudio && waterDepth > -0.025 && isWaveRunning)
+        {
+            audio.volume = 0.4f;
         }
     }
 
@@ -71,6 +79,7 @@ public class ControllerWaves : MonoBehaviour
     public void JoystickPressureEnd()
     {
         StopCoroutine(vibrationCoroutine);
+        OVRInput.SetControllerVibration(0, 0, controllerToVibrate);
         isPressing = false;
 
         float heldTime = Time.time - pressStartTime;
