@@ -50,11 +50,7 @@ public class GetAxis : MonoBehaviour
             controller.JoystickPressureEnd();
         }if (bButtonAction != null && bButtonAction.action.WasPressedThisFrame())
          {
-             Debug.Log("B button was just pressed!");
              scriptBody.ResetRotation();
          }
-
-
-
     }
 }

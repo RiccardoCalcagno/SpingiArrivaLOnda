@@ -1525,39 +1525,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.045
+      value: 0.714
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.317
+      value: 3.286
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.26107085
+      value: 0.16114093
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.0034139925
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9653197
+      value: -0.96352124
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.21365567
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 24.382
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -149.733
+      value: -160.164
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 3.921
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2c1ce2f9f40291345a25723fbdeae40f, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -10702,7 +10702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monoscopic: 0
   _sharpenType: 0
-  _enableDynamicResolution: 0
+  _enableDynamicResolution: 1
   minDynamicResolutionScale: 1
   maxDynamicResolutionScale: 1
   quest2MinDynamicResolutionScale: 0.7
